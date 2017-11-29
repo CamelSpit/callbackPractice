@@ -18,7 +18,9 @@ and WHAT YOU SHOULD WRITE is the sayHi function that makes the code above work:
 
 // 1. Write a function called first that takes in two parameters, an array and a callback function, then invokes the callback function, passing in the first element in the array as it's argument.  (see the sayHi function on line 12 for reference)
 
-  // Code Here 
+  first = (array, cb) => {
+    array.map(y => cb(y));
+  } 
 
   
 var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan'];
@@ -30,15 +32,13 @@ first(names, function(firstName){
 
 
 
+
+
 // 2. Write a function called last that takes in an array and a callback function, then invokes the callback, passing in the last element in the array as the argument.
 
-  //Code Here
-
-
-last(names, function(lastName){
-  console.log('The last name in names is ' + lastName);
-  return lastName;
-});
+  last = (array, callback) => {
+    callback(array[array.length-1]);
+  }
 
 
 
@@ -47,9 +47,7 @@ last(names, function(lastName){
   //Code Here
 
 
-multiply(4, 3, function(answer){
-  console.log('The answer is ' + answer); //should console.log 12
-})
+multiply = (n1, n2, cb) => cb(n1*n2);
 
 
 
@@ -59,23 +57,37 @@ multiply(4, 3, function(answer){
 
   //Code Here 
 
+contains = (array, name, cb) => {
+  if (array.filter(y => y===name)) {
+    cb(true);
+  }
+  cb(false);
+}
 
 
-
-contains(names, 'Colt', function(result){
+/*contains(names, 'Colt', function(result){
   if(result === true){
     console.log('Colt is in the array');
   } else {
     console.log('Colt is not in the array');
   }
-});
+});*/
 
 
 
 // 5. Write a function called uniq that takes in an array and a callback function.
 // Remove any duplicate values from the array, and invoke the callback with the modified array as an argument.
 
-  //Code Here
+uniq = (array, cb) => {
+  var nuArr = [];
+  for (var k=0; k<array.length; k++) {
+    if (nuArr.indexOf(array[k])===-1) {
+      nuArr.push(array[k]);
+    }
+  }
+  console.log(nuArr);
+  cb(nuArr);
+}
 
 
 
@@ -86,7 +98,9 @@ uniq(names, function(uniqArr){
 
 // 6. Write a function called each that takes in an array of names and a callback function. For each name in the array, invoke the callback and pass in the name and the name's index as arguments.
 
-    //Code Here 
+    each = (array, cb) => {
+      array.forEach(y => cb(y,array.indexOf(y)));
+    } 
 
 
 
@@ -99,7 +113,14 @@ each(names, function(item, indice){
 // 7. Write a function called getUserById that takes in three parameters: an array of objects (users), an id and a callback, and searches for the user with a matching id.
 // When the correct user object is found, invoke the callback with the user object as an argument.
 
-// Code here
+getUserById = (users, id, cb) => {
+  users.map(y => {
+    if (y.id === id) {
+      cb(y);
+    }
+
+  })
+}
 
 
 
